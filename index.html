@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SMART HOME DASHBOARD</title>
+
+<style>
+body{font-family:Arial;margin:0;background:#f1f5f9;}
+.container{max-width:1000px;margin:40px auto;background:white;padding:25px;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.15);}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.card{background:#f8fafc;padding:20px;border-radius:12px;}
+.mode{font-size:26px;font-weight:bold;}
+.auto{color:green;}
+.manual{color:orange;}
+button{padding:10px 15px;margin:5px 0;border:none;border-radius:6px;cursor:pointer;}
+.btn-green{background:#22c55e;color:white;}
+.btn-red{background:#ef4444;color:white;}
+.btn-orange{background:#f59e0b;color:white;}
+.value{font-size:20px;margin:5px 0;}
+table{width:100%;border-collapse:collapse;margin-top:10px;}
+th,td{border:1px solid #ccc;padding:8px;text-align:center;}
+th{background:#e2e8f0;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>SMART HOME DASHBOARD</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>CHE DO HE THONG</h3>
+<div id="mode" class="mode">--</div>
+<button class="btn-green" onclick="setMode('AUTO')">AUTO</button>
+<button class="btn-orange" onclick="setMode('MANUAL')">MANUAL</button>
+</div>
+
+<div class="card">
+<h3>DIEU KHIEN THIET BI</h3>
+
+<div>TRANG THAI CUA: <b id="door">--</b></div>
+<button class="btn-green" onclick="control('servo','OPEN')">MO CUA</button>
+<button class="btn-red" onclick="control('servo','CLOSE')">DONG CUA</button>
+
+<hr>
+
+<div>DEN TREO TUONG: <b id="light">--</b></div>
+<button class="btn-green" onclick="control('light','ON')">BAT DEN</button>
+<button class="btn-red" onclick="control('light','OFF')">TAT DEN</button>
+
+<hr>
+
+<div>CAM BIEN MUA: <b id="rain">--</b></div>
+
+</div>
+
+</div>
+
+<div class="card">
+<h3>LICH SU RFID</h3>
+<div id="rfid-log"></div>
+</div>
+
+</div>
+
+<script>
+function setMode(mode){
+fetch('control.php?type=mode&value='+mode).then(loadStatus);
+}
+
+function control(type,value){
+fetch('control.php?type='+type+'&value='+value).then(loadStatus);
+}
+
+function loadStatus(){
+fetch('status.php')
+.then(r=>r.json())
+.then(d=>{
+document.getElementById('mode').innerText=d.mode;
+document.getElementById('door').innerText=d.door;
+
+document.getElementById('light').innerText = d.light;
+
+document.getElementById('rain').innerText=d.rain;
+});
+
+fetch('log.php')
+.then(r=>r.text())
+.then(html=>{
+document.getElementById('rfid-log').innerHTML=html;
+});
+}
+
+setInterval(loadStatus,1000);
+loadStatus();
+</script>
+
+</body>
+</html>
