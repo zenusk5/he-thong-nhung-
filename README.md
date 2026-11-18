@@ -1,21 +1,21 @@
-# he-thong-nhung-
-# Hệ thống nhúng điều khiển IoT bằng Raspberry Pi
+# Embedded-IoT-Control-System
+# IoT Control System Using Raspberry Pi
 
-## Giới thiệu
-Project này xây dựng hệ thống điều khiển thiết bị IoT thông qua Web sử dụng Raspberry Pi.
+## Introduction
+This project develops a system for controlling IoT devices via the web using Raspberry Pi.
 
-## Công nghệ sử dụng
+## Technologies Used
 - Raspberry Pi
 - PHP
 - Python
 - HTML
-- Web Server Apache
+- Apache Web Server
 
-## Các file trong project
-- index.html : giao diện điều khiển
-- auto.php : chế độ tự động
-- manual.php : điều khiển thủ công
-- status.php : đọc trạng thái thiết bị
-- log.php : ghi log hoạt động
-- control.php : xử lý lệnh điều khiển
-- doan.py : Python điều khiển GPIO
+## Files in the Project
+- index.html: Control interface
+- auto.php: Automatic mode
+- manual.php: Manual control
+- status.php: Read device status
+- log.php: Log operation records
+- control.php: Process control commands
+- doan.py: Python script for GPIO control
